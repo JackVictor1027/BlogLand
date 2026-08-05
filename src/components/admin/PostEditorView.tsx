@@ -101,10 +101,12 @@ export default function PostEditorView({ slug }: Props) {
       };
       const path = editing && post ? post.path : postPathFromSlug(effectiveSlug);
       await savePost(path, data, body, editing && post ? post.sha : undefined);
-      setMsg('已保存，等待 GitHub Actions 重新构建部署……');
+      setMsg(
+        '已保存：commit 已提交，GitHub Actions 正在重新构建部署（约 1 分钟）。由于 GitHub Pages 页面缓存为 10 分钟，游客端可能短暂显示旧内容，可强刷（Ctrl/Cmd+Shift+R）立即查看最新版。'
+      );
       window.setTimeout(() => {
         window.location.hash = '#/posts';
-      }, 1200);
+      }, 2500);
     } catch (e) {
       setError((e as Error).message || '保存失败');
     } finally {
