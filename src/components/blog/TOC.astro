@@ -1,0 +1,69 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings?: Heading[];
+}
+
+const { headings = [] } = Astro.props;
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const hasToc = tocHeadings.length > 1;
+---
+
+{
+  hasToc && (
+    <nav aria-label="文章目录" class="rounded-sm bg-paper border-2 border-ink shadow-riso-sm p-4 font-mono">
+      <h2 class="text-xs font-bold uppercase tracking-wider mb-3 text-gray-600">目录</h2>
+      <ul class="space-y-1 text-sm">
+        {
+          tocHeadings.map((h) => (
+            <li class={h.depth === 3 ? 'pl-4' : ''}>
+              <a
+                href={`#${h.slug}`}
+                data-toc-link={h.slug}
+                class="toc-link block py-0.5 text-gray-700 hover:text-riso-blue"
+              >
+                {h.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  )
+}
+
+<style is:global>
+  .toc-link.toc-active {
+    color: var(--color-riso-orange);
+    font-weight: bold;
+  }
+</style>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
+  if (links.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            links.forEach((a) => {
+              const active = a.getAttribute('data-toc-link') === id;
+              a.classList.toggle('toc-active', active);
+            });
+          }
+        }
+      },
+      { rootMargin: '-80px 0px -65% 0px' }
+    );
+    links.forEach((a) => {
+      const el = document.getElementById(a.getAttribute('data-toc-link') ?? '');
+      if (el) observer.observe(el);
+    });
+  }
+</script>

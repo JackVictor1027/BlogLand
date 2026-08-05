@@ -1,0 +1,85 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TOC from '@/components/blog/TOC.astro';
+import TagPill from '@/components/ui/TagPill.astro';
+import { formatDate, readingTime } from '@/utils/date';
+import { getPostSlug } from '@/utils/posts';
+import { withBase } from '@/utils/path';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  headings: Heading[];
+  prev?: CollectionEntry<'posts'>;
+  next?: CollectionEntry<'posts'>;
+}
+
+const { post, headings, prev, next } = Astro.props;
+const { title, description, date, tags } = post.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-16">
+    <header class="mb-8 border-b-2 border-ink pb-6">
+      <h1 class="font-black text-3xl md:text-5xl tracking-tight mb-4">{title}</h1>
+      <div class="flex flex-wrap items-center gap-2 text-xs md:text-sm text-gray-600">
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        <span>·</span>
+        <span>{readingTime(post.body ?? '')} 分钟阅读</span>
+        {
+          tags.length > 0 && (
+            <span class="flex flex-wrap gap-2 ml-1">
+              {tags.map((tag) => <TagPill>{tag}</TagPill>)}
+            </span>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="grid lg:grid-cols-[minmax(0,1fr)_240px] gap-10">
+      <article class="prose-riso max-w-[65ch]">
+        <slot />
+      </article>
+      <aside class="hidden lg:block">
+        <div class="sticky top-24">
+          <TOC headings={headings} />
+        </div>
+      </aside>
+    </div>
+
+    <nav class="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono" aria-label="上一篇/下一篇">
+      {
+        prev ? (
+          <a
+            href={withBase(`/posts/${getPostSlug(prev)}/`)}
+            class="riso-interactive riso-press rounded-sm bg-paper border-2 border-ink p-4 hover:shadow-riso-hover"
+          >
+            <span class="block text-xs text-gray-600 mb-1">← 上一篇</span>
+            <span class="font-bold text-sm">{prev.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next ? (
+          <a
+            href={withBase(`/posts/${getPostSlug(next)}/`)}
+            class="riso-interactive riso-press rounded-sm bg-paper border-2 border-ink p-4 text-right hover:shadow-riso-hover"
+          >
+            <span class="block text-xs text-gray-600 mb-1">下一篇 →</span>
+            <span class="font-bold text-sm">{next.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+    </nav>
+  </div>
+</BaseLayout>

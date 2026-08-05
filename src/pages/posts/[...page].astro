@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPathsOptions, Page } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+import Pagination from '@/components/blog/Pagination.astro';
+import EmptyState from '@/components/ui/EmptyState.astro';
+import { SITE } from '@/config';
+import type { Post } from '@/utils/posts';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getCollection('posts');
+  const published = posts
+    .filter((p) => !p.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  return paginate(published, { pageSize: SITE.postsPerPage });
+}
+
+const { page } = Astro.props as { page: Page<Post> };
+---
+
+<BaseLayout title="文章归档">
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-20">
+    <h1 class="font-black text-3xl md:text-5xl uppercase tracking-wider mb-2">文章归档</h1>
+    <p class="text-gray-600 text-sm mb-10">共 {page.data.length} 篇（本页）</p>
+
+    {
+      page.data.length === 0 ? (
+        <EmptyState>还没有已发布的文章。</EmptyState>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {page.data.map((post) => <PostCard post={post} />)}
+        </div>
+      )
+    }
+
+    <Pagination page={page} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+interface Props {
+  /** paginate 生成的 page 对象 */
+  page: {
+    currentPage: number;
+    lastPage: number;
+    url: { prev?: string; next?: string };
+  };
+}
+
+const { page } = Astro.props;
+const { prev, next } = page.url;
+---
+
+<nav class="flex items-center justify-between mt-10 gap-4 font-mono" aria-label="分页">
+  {
+    prev ? (
+      <a
+        href={prev}
+        class="riso-interactive riso-press rounded-sm bg-paper border-2 border-ink font-bold uppercase tracking-wider text-xs md:text-sm px-4 py-2 hover:shadow-riso-hover"
+      >
+        ← 上一页
+      </a>
+    ) : (
+      <span class="invisible select-none">占位</span>
+    )
+  }
+  <span class="text-xs md:text-sm text-gray-600">
+    第 {page.currentPage} / {page.lastPage} 页
+  </span>
+  {
+    next ? (
+      <a
+        href={next}
+        class="riso-interactive riso-press rounded-sm bg-paper border-2 border-ink font-bold uppercase tracking-wider text-xs md:text-sm px-4 py-2 hover:shadow-riso-hover"
+      >
+        下一页 →
+      </a>
+    ) : (
+      <span class="invisible select-none">占位</span>
+    )
+  }
+</nav>

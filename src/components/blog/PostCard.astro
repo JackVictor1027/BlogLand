@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, readingTime } from '@/utils/date';
+import { getPostSlug } from '@/utils/posts';
+import { withBase } from '@/utils/path';
+import TagPill from '@/components/ui/TagPill.astro';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const slug = getPostSlug(post);
+---
+
+<a href={withBase(`/posts/${slug}/`)} class="block h-full">
+  <article class="h-full rounded-sm bg-paper border-2 md:border-4 border-ink shadow-riso-lg md:shadow-riso-2xl riso-interactive riso-press hover:shadow-riso-hover hover:-translate-y-1 p-5 md:p-6">
+    <h3 class="font-bold text-lg md:text-xl mb-2">{post.data.title}</h3>
+    <div class="flex flex-wrap items-center gap-2 text-xs md:text-sm text-gray-600 mb-3">
+      <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+      <span>·</span>
+      <span>{readingTime(post.body ?? '')} 分钟阅读</span>
+    </div>
+    <p class="text-sm md:text-base text-gray-700 mb-4">{post.data.description}</p>
+    {
+      post.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => <TagPill>{tag}</TagPill>)}
+        </div>
+      )
+    }
+  </article>
+</a>

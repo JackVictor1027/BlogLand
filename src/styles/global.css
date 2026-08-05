@@ -87,6 +87,7 @@
   .prose-riso h3,
   .prose-riso h4 {
     @apply font-bold uppercase tracking-wider mt-8 mb-4;
+    scroll-margin-top: 5rem;
   }
 
   .prose-riso h1 {
