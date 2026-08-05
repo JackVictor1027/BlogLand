@@ -1,4 +1,6 @@
 ---
+import { withBase } from '@/utils/path';
+
 interface Props {
   /** 视觉样式 */
   variant?: 'solid' | 'outline' | 'dark';
@@ -38,7 +40,7 @@ const sizes = {
 
 {
   href ? (
-    <a href={href} class={`${base} ${variants[variant]} ${sizes[size]} ${className}`}>
+    <a href={withBase(href)} class={`${base} ${variants[variant]} ${sizes[size]} ${className}`}>
       <slot />
     </a>
   ) : (

@@ -207,19 +207,23 @@ export default function PostEditorView({ slug }: Props) {
         </div>
 
         <div className={`${cardCls} space-y-3`}>
-          <span className={labelCls}>正文（Markdown）</span>
-          <textarea
-            className={`${inputCls} min-h-[360px] leading-6`}
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            placeholder="在此输入 Markdown 正文……"
-          />
-          <div>
-            <span className={labelCls}>实时预览</span>
-            <div
-              className="prose-riso border-2 border-ink rounded-sm bg-paper p-4 min-h-[120px]"
-              dangerouslySetInnerHTML={{ __html: preview || '<p class="text-gray-500">（输入正文后此处预览）</p>' }}
-            />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+            <div>
+              <span className={labelCls}>正文（Markdown）</span>
+              <textarea
+                className={`${inputCls} min-h-[520px] leading-6`}
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                placeholder="在此输入 Markdown 正文……"
+              />
+            </div>
+            <div>
+              <span className={labelCls}>实时预览</span>
+              <div
+                className="prose-riso border-2 border-ink rounded-sm bg-paper p-4 min-h-[520px] max-h-[520px] overflow-auto"
+                dangerouslySetInnerHTML={{ __html: preview || '<p class="text-gray-500">（输入正文后此处预览）</p>' }}
+              />
+            </div>
           </div>
         </div>
 
