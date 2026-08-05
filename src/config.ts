@@ -26,3 +26,15 @@ export const COMMENTS = {
   /** 主题：github-light / github-dark */
   theme: 'github-light',
 } as const;
+
+/** 管理端配置 */
+export const ADMIN = {
+  /** GitHub 仓库（owner/repo），管理端全部写操作的目标 */
+  repo: 'JackVictor1027/BlogLand',
+  /** 文章目录（相对仓库根） */
+  postsDir: 'src/content/posts',
+  /** 图片目录（相对仓库根） */
+  imagesDir: 'assets/images',
+  /** 默认分支（raw 图片预览用） */
+  branch: 'master',
+} as const;

@@ -1,0 +1,19 @@
+---
+import AdminApp from '@/components/admin/AdminApp';
+import { SITE } from '@/config';
+import '@/styles/global.css';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>管理后台 · {SITE.title}</title>
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+  </head>
+  <body data-pagefind-ignore>
+    <AdminApp client:load />
+  </body>
+</html>
