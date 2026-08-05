@@ -1,0 +1,49 @@
+---
+interface Props {
+  /** 视觉样式 */
+  variant?: 'solid' | 'outline' | 'dark';
+  /** 尺寸 */
+  size?: 'sm' | 'md' | 'lg';
+  /** 链接模式：传入 href 渲染为 <a> */
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'solid',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  class: className = '',
+} = Astro.props;
+
+const base =
+  'riso-interactive riso-press inline-flex items-center justify-center gap-2 rounded-sm font-mono font-bold uppercase tracking-wider cursor-pointer select-none disabled:opacity-50 disabled:pointer-events-none';
+
+const variants = {
+  solid: 'bg-riso-pink text-ink border-2 border-ink shadow-riso hover:shadow-riso-hover',
+  outline: 'bg-paper text-ink border-2 border-ink shadow-riso-sm hover:shadow-riso-hover',
+  dark: 'bg-ink text-paper border-2 border-ink shadow-riso-sm hover:shadow-riso-hover',
+};
+
+const sizes = {
+  sm: 'px-3 py-2 text-xs',
+  md: 'px-4 py-2.5 text-sm',
+  lg: 'px-6 py-3 text-base',
+};
+---
+
+{
+  href ? (
+    <a href={href} class={`${base} ${variants[variant]} ${sizes[size]} ${className}`}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} disabled={disabled} class={`${base} ${variants[variant]} ${sizes[size]} ${className}`}>
+      <slot />
+    </button>
+  )
+}

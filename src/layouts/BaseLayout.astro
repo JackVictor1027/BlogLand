@@ -1,5 +1,7 @@
 ---
 import { SITE } from '@/config';
+import Nav from '@/components/layout/Nav.astro';
+import Footer from '@/components/layout/Footer.astro';
 import '@/styles/global.css';
 
 interface Props {
@@ -23,7 +25,17 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <meta property="og:type" content="website" />
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} />
   </head>
-  <body class="bg-paper text-ink">
-    <slot />
+  <body class="bg-paper text-ink font-mono">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-riso-pink focus:px-3 focus:py-2 focus:font-bold"
+    >
+      跳到主内容
+    </a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

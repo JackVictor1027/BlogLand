@@ -1,0 +1,19 @@
+---
+interface Props {
+  /** 是否可交互（悬停双墨版错位 + 位移） */
+  interactive?: boolean;
+  class?: string;
+}
+
+const { interactive = false, class: className = '' } = Astro.props;
+
+const base =
+  'rounded-sm bg-paper border-2 md:border-4 border-ink shadow-riso-lg md:shadow-riso-2xl';
+const interactiveCls = interactive
+  ? 'riso-interactive riso-press hover:shadow-riso-hover hover:-translate-y-1'
+  : '';
+---
+
+<div class={`${base} ${interactiveCls} ${className}`}>
+  <slot />
+</div>

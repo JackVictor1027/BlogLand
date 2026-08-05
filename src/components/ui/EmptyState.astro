@@ -1,0 +1,17 @@
+---
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = '空空如也', class: className = '' } = Astro.props;
+---
+
+<div
+  class={`rounded-sm bg-paper border-2 border-ink shadow-riso-lg p-8 text-center font-mono ${className}`}
+>
+  <p class="font-bold uppercase tracking-wider text-lg">{title}</p>
+  <div class="mt-4 text-sm text-gray-600">
+    <slot />
+  </div>
+</div>

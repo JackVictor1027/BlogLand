@@ -1,0 +1,44 @@
+---
+import { SITE } from '@/config';
+import { withBase } from '@/utils/path';
+
+const footerLinks = [
+  { href: '/', label: '首页' },
+  { href: '/posts/', label: '文章' },
+  { href: '/tags/', label: '标签' },
+  { href: '/about/', label: '关于' },
+];
+---
+
+<footer class="bg-ink text-paper py-10 md:py-14 px-4 md:px-8 border-t-2 md:border-t-4 border-ink">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div>
+      <span class="font-black text-lg md:text-2xl">{SITE.title}</span>
+      <p class="font-mono text-sm mt-4 text-gray-400">{SITE.description || '暂无简介'}</p>
+    </div>
+    <div>
+      <h4 class="font-black text-base mb-4 uppercase tracking-wider">导航</h4>
+      <ul class="space-y-2 font-mono text-sm text-gray-400">
+        {
+          footerLinks.map((l) => (
+            <li>
+              <a href={withBase(l.href)} class="hover:text-riso-pink">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-black text-base mb-4 uppercase tracking-wider">联系</h4>
+      <ul class="space-y-2 font-mono text-sm text-gray-400">
+        <li>{SITE.social.github || 'GitHub：待补充'}</li>
+        <li>{SITE.social.email || '邮箱：待补充'}</li>
+      </ul>
+    </div>
+  </div>
+  <p class="mt-10 text-center font-mono text-xs text-gray-500">
+    © {new Date().getFullYear()} {SITE.title}
+  </p>
+</footer>

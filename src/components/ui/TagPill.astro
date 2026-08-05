@@ -1,0 +1,26 @@
+---
+interface Props {
+  href?: string;
+  count?: number;
+  class?: string;
+}
+
+const { href, count, class: className = '' } = Astro.props;
+
+const base =
+  'riso-interactive riso-press inline-flex items-center gap-1 rounded-sm border-2 border-ink bg-paper font-mono text-xs font-bold uppercase tracking-wider px-2 py-1 hover:shadow-riso-hover';
+---
+
+{
+  href ? (
+    <a href={href} class={`${base} ${className}`}>
+      <slot />
+      {count !== undefined && <span class="text-gray-600">{count}</span>}
+    </a>
+  ) : (
+    <span class={`${base} ${className}`}>
+      <slot />
+      {count !== undefined && <span class="text-gray-600">{count}</span>}
+    </span>
+  )
+}

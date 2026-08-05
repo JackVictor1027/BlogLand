@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 
-/* ============ Risograph 设计 Token ============ */
+/* ============================================================
+   Risograph 印刷风 · 设计 Token
+   依据：网站设计质检标准.md（验收依据）
+   - 有限色彩 3-4 色 · 双墨版双向错位硬阴影 · 机械式 ease-linear
+   ============================================================ */
 @theme {
   /* 有限色板 */
   --color-paper: #fffbf0;
@@ -10,12 +14,155 @@
   --color-riso-orange: #ff8a00;
   --color-riso-green: #22c55e;
 
-  /* 字体：拉丁/代码 mono + 中文系统栈 */
+  /* 字体：拉丁/代码 mono，中文走系统 CJK 栈（web 字体后续子集化接入） */
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas,
     'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
   --font-sans: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
     'Noto Sans SC', 'Segoe UI', sans-serif;
 
-  /* 过渡：印刷机机械式 */
+  /* 硬边套印阴影（Riso 双墨版：正向 + 反向双向错位，零模糊） */
+  --shadow-riso-sm: 2px 2px 0 0 var(--color-riso-pink), -1px -1px 0 0 var(--color-riso-blue);
+  --shadow-riso: 3px 3px 0 0 var(--color-riso-blue), -1px -1px 0 0 var(--color-riso-pink);
+  --shadow-riso-lg: 4px 4px 0 0 var(--color-riso-pink), -2px -2px 0 0 var(--color-riso-blue);
+  --shadow-riso-2xl: 8px 8px 0 0 var(--color-riso-pink), -4px -4px 0 0 var(--color-riso-blue);
+  /* hover 双墨版错位：右下蓝版 + 左上橙版（质检标准明确要求） */
+  --shadow-riso-hover: 6px 6px 0 0 var(--color-riso-blue), -4px -4px 0 0 var(--color-riso-orange);
+  --shadow-riso-focus: 3px 3px 0 0 var(--color-riso-orange), -2px -2px 0 0 var(--color-riso-pink);
+
+  /* 机械式过渡（印刷机瞬间切换） */
   --ease-linear: linear;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-mono);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-riso-pink);
+    color: #fff;
+  }
+
+  /* 键盘焦点可见性（WCAG） */
+  :focus-visible {
+    outline: 2px solid var(--color-riso-orange);
+    outline-offset: 2px;
+  }
+}
+
+/* 通用交互组合：悬停双墨版错位 + 按下压平 + 机械过渡 */
+@layer components {
+  .riso-interactive {
+    transition-property: all;
+    transition-duration: 100ms;
+    transition-timing-function: linear;
+  }
+
+  .riso-press {
+    @apply active:translate-x-[3px] active:translate-y-[3px] active:shadow-none;
+  }
+}
+
+/* ============================================================
+   Markdown 正文排版（prose-riso）
+   ============================================================ */
+@layer components {
+  .prose-riso {
+    @apply font-mono text-sm leading-7 md:text-base md:leading-8 text-ink;
+  }
+
+  .prose-riso > * + * {
+    margin-top: 1rem;
+  }
+
+  .prose-riso h1,
+  .prose-riso h2,
+  .prose-riso h3,
+  .prose-riso h4 {
+    @apply font-bold uppercase tracking-wider mt-8 mb-4;
+  }
+
+  .prose-riso h1 {
+    @apply text-2xl md:text-3xl border-b-2 border-ink pb-2;
+  }
+
+  .prose-riso h2 {
+    @apply text-xl md:text-2xl;
+  }
+
+  .prose-riso h3 {
+    @apply text-lg md:text-xl;
+  }
+
+  .prose-riso a {
+    @apply text-riso-blue font-bold underline underline-offset-4 decoration-2 hover:text-riso-orange;
+  }
+
+  .prose-riso strong {
+    @apply font-bold;
+  }
+
+  .prose-riso blockquote {
+    @apply border-l-4 border-riso-pink pl-4 italic text-gray-700;
+  }
+
+  .prose-riso ul {
+    @apply list-disc list-outside pl-5;
+  }
+
+  .prose-riso ol {
+    @apply list-decimal list-outside pl-5;
+  }
+
+  .prose-riso code {
+    @apply bg-[#ffe3ef] text-ink px-1.5 py-0.5 rounded-sm text-sm;
+  }
+
+  .prose-riso pre {
+    @apply bg-ink text-paper p-4 rounded-sm overflow-x-auto text-sm leading-6;
+  }
+
+  .prose-riso pre code {
+    @apply bg-transparent p-0 text-paper;
+  }
+
+  .prose-riso table {
+    @apply w-full border-collapse my-4;
+  }
+
+  .prose-riso th,
+  .prose-riso td {
+    @apply border-2 border-ink px-3 py-2 text-left;
+  }
+
+  .prose-riso th {
+    @apply bg-[#ffe3ef] font-bold;
+  }
+
+  .prose-riso img {
+    @apply rounded-sm border-2 border-ink shadow-riso max-w-full h-auto my-4;
+  }
+
+  .prose-riso hr {
+    @apply border-ink my-8;
+  }
+}
+
+/* 尊重 prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

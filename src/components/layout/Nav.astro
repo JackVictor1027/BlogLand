@@ -1,0 +1,35 @@
+---
+import { SITE } from '@/config';
+import { withBase } from '@/utils/path';
+
+const links = [
+  { href: '/', label: '首页' },
+  { href: '/posts/', label: '文章' },
+  { href: '/tags/', label: '标签' },
+  { href: '/search/', label: '搜索' },
+  { href: '/about/', label: '关于' },
+];
+---
+
+<nav class="sticky top-0 z-50 bg-paper border-b-2 md:border-b-4 border-ink px-4 md:px-8 py-3 md:py-4">
+  <div class="flex items-center justify-between gap-4 max-w-6xl mx-auto">
+    <a
+      href={withBase('/')}
+      class="font-black text-lg md:text-2xl tracking-wider whitespace-nowrap"
+    >
+      {SITE.title}
+    </a>
+    <div class="flex gap-3 md:gap-8 font-mono text-sm md:text-base">
+      {
+        links.map((l) => (
+          <a
+            href={withBase(l.href)}
+            class="hover:text-riso-blue hover:underline underline-offset-4"
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</nav>
