@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+import TagPill from '@/components/ui/TagPill.astro';
+import EmptyState from '@/components/ui/EmptyState.astro';
+import { withBase } from '@/utils/path';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const tags = new Set<string>();
+  for (const post of posts) {
+    if (post.data.draft) continue;
+    for (const tag of post.data.tags) tags.add(tag);
+  }
+  return [...tags].map((tag) => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const published = (await getCollection('posts')).filter(
+  (p) => !p.data.draft && p.data.tags.includes(tag)
+);
+---
+
+<BaseLayout title={`标签：${tag}`}>
+  <div class="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-20">
+    <div class="mb-10">
+      <h1 class="font-black text-3xl md:text-5xl uppercase tracking-wider mb-4">
+        标签：{tag}
+      </h1>
+      <TagPill href={withBase('/tags/')}>← 全部标签</TagPill>
+    </div>
+
+    {
+      published.length === 0 ? (
+        <EmptyState>该标签下暂无文章。</EmptyState>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {published.map((post) => <PostCard post={post} />)}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>

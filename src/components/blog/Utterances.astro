@@ -1,0 +1,21 @@
+---
+import { COMMENTS } from '@/config';
+
+const configured = Boolean(COMMENTS.repo && COMMENTS.repoId);
+---
+
+<section class="mt-14" aria-label="评论区">
+  <h2 class="font-bold text-xl md:text-2xl uppercase tracking-wider mb-4 border-b-2 border-ink pb-2">
+    评论
+  </h2>
+
+  {
+    configured ? (
+      <div id="utterances" set:html={`<script src="https://utteranc.es/client.js" repo="${COMMENTS.repo}" repo-id="${COMMENTS.repoId}" issue-term="${COMMENTS.issueTerm}" label="comment" theme="${COMMENTS.theme}" crossorigin="anonymous" async></script>`}></div>
+    ) : (
+      <p class="text-sm text-gray-600 font-mono">
+        评论区待配置（需在 src/config.ts 设置 utterances 的仓库与 repo-id）。
+      </p>
+    )
+  }
+</section>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="站内搜索">
+  <div class="max-w-4xl mx-auto px-4 md:px-8 py-12 md:py-20">
+    <h1 class="font-black text-3xl md:text-5xl uppercase tracking-wider mb-2">站内搜索</h1>
+    <p class="text-gray-600 text-sm mb-8">输入关键词，全文检索本站文章。</p>
+
+    <label class="block font-mono">
+      <span class="mb-1 block text-xs font-bold uppercase tracking-wider">关键词</span>
+      <input
+        id="search-input"
+        type="search"
+        placeholder="例如：Astro、设计……"
+        autocomplete="off"
+        class="w-full rounded-sm border-2 border-ink bg-paper font-mono px-3 py-2 focus:outline-none focus:shadow-riso-focus riso-interactive placeholder:text-gray-500"
+      />
+    </label>
+
+    <p id="search-status" class="mt-4 text-sm text-gray-600" role="status" aria-live="polite"></p>
+
+    <div id="search-results" class="mt-6 grid grid-cols-1 gap-4"></div>
+  </div>
+</BaseLayout>
+
+<script>
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  const status = document.getElementById('search-status') as HTMLParagraphElement;
+  const resultsEl = document.getElementById('search-results') as HTMLDivElement;
+
+  let pagefind: any;
+
+  async function loadPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      pagefind = await import(/* @vite-ignore */ `${import.meta.env.BASE_URL}pagefind/pagefind.js`);
+      status.textContent = '搜索索引已就绪';
+    } catch {
+      status.textContent = '搜索索引尚未生成（请先执行 pnpm build）。';
+    }
+    return pagefind;
+  }
+
+  function renderCard(title: string, excerpt: string, url: string) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.className =
+      'block rounded-sm bg-paper border-2 md:border-4 border-ink shadow-riso-lg md:shadow-riso-2xl riso-interactive riso-press hover:shadow-riso-hover hover:-translate-y-1 p-5';
+    const h = document.createElement('h3');
+    h.className = 'font-bold text-lg md:text-xl mb-2';
+    h.textContent = title;
+    const p = document.createElement('p');
+    p.className = 'text-sm md:text-base text-gray-700';
+    p.textContent = excerpt;
+    a.append(h, p);
+    return a;
+  }
+
+  async function doSearch(term: string) {
+    const pf = await loadPagefind();
+    if (!pf) return;
+    const t = term.trim();
+    if (!t) {
+      status.textContent = '';
+      resultsEl.innerHTML = '';
+      return;
+    }
+    status.textContent = '搜索中……';
+    const search = await pf.search(t);
+    const results = search?.results ?? [];
+    resultsEl.innerHTML = '';
+    if (results.length === 0) {
+      status.textContent = `未找到与「${t}」相关的内容。`;
+      return;
+    }
+    status.textContent = `共 ${results.length} 条结果`;
+    for (const r of results.slice(0, 20)) {
+      const data = await r.data();
+      resultsEl.appendChild(renderCard(data.meta?.title ?? data.title, data.excerpt, data.url));
+    }
+  }
+
+  let timer: number | undefined;
+  input?.addEventListener('input', () => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(() => doSearch(input.value), 300);
+  });
+
+  loadPagefind();
+</script>

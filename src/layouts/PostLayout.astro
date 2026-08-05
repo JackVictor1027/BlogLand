@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import TOC from '@/components/blog/TOC.astro';
 import TagPill from '@/components/ui/TagPill.astro';
+import Utterances from '@/components/blog/Utterances.astro';
 import { formatDate, readingTime } from '@/utils/date';
 import { getPostSlug } from '@/utils/posts';
 import { withBase } from '@/utils/path';
@@ -52,6 +53,8 @@ const { title, description, date, tags } = post.data;
         </div>
       </aside>
     </div>
+
+    <Utterances />
 
     <nav class="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono" aria-label="上一篇/下一篇">
       {

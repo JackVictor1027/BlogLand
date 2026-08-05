@@ -1,15 +1,40 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+import Button from '@/components/ui/Button.astro';
 import { SITE } from '@/config';
+import { getPublishedPosts } from '@/utils/posts';
+
+const latest = (await getPublishedPosts()).slice(0, 5);
 ---
 
 <BaseLayout>
-  <main class="min-h-screen flex flex-col items-center justify-center px-4 font-mono">
-    <h1 class="font-bold uppercase tracking-wider text-3xl md:text-5xl">
-      {SITE.title}
-    </h1>
-    <p class="mt-6 text-sm md:text-base text-gray-600">
-      网站正在搭建中……
-    </p>
-  </main>
+  <section class="bg-riso-pink border-b-2 md:border-b-4 border-ink px-4 md:px-8 py-14 md:py-24">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="font-black text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-4">
+        {SITE.title}
+      </h1>
+      <p class="text-base md:text-xl max-w-xl mb-8 text-ink">
+        {SITE.description || '代码与诗，两手都要硬。'}
+      </p>
+      <Button href="/posts/" variant="dark" size="lg">浏览全部文章</Button>
+    </div>
+  </section>
+
+  <section class="px-4 md:px-8 py-12 md:py-20">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="font-black text-2xl md:text-4xl uppercase tracking-wider mb-8 md:mb-12">
+        最新文章
+      </h2>
+      {
+        latest.length === 0 ? (
+          <p class="font-mono text-gray-600">还没有文章，敬请期待。</p>
+        ) : (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {latest.map((post) => <PostCard post={post} />)}
+          </div>
+        )
+      }
+    </div>
+  </section>
 </BaseLayout>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TagPill from '@/components/ui/TagPill.astro';
+import EmptyState from '@/components/ui/EmptyState.astro';
+import { withBase } from '@/utils/path';
+import { getAllTags } from '@/utils/posts';
+
+const tags = await getAllTags();
+---
+
+<BaseLayout title="标签归档">
+  <div class="max-w-4xl mx-auto px-4 md:px-8 py-12 md:py-20">
+    <h1 class="font-black text-3xl md:text-5xl uppercase tracking-wider mb-2">标签归档</h1>
+    <p class="text-gray-600 text-sm mb-10">共 {tags.length} 个标签</p>
+
+    {
+      tags.length === 0 ? (
+        <EmptyState>还没有任何标签。</EmptyState>
+      ) : (
+        <div class="flex flex-wrap gap-3">
+          {
+            tags.map((tag) => (
+              <TagPill href={withBase(`/tags/${tag.name}/`)} count={tag.count}>
+                {tag.name}
+              </TagPill>
+            ))
+          }
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>

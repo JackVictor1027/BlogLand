@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Card from '@/components/ui/Card.astro';
+import { SITE } from '@/config';
+---
+
+<BaseLayout title="关于">
+  <div class="max-w-4xl mx-auto px-4 md:px-8 py-12 md:py-20">
+    <h1 class="font-black text-3xl md:text-5xl uppercase tracking-wider mb-8">关于我</h1>
+
+    <div class="space-y-6">
+      <Card>
+        <h2 class="font-bold text-xl md:text-2xl uppercase tracking-wider mb-3">简介</h2>
+        <p class="text-sm md:text-base text-gray-700">
+          {SITE.author || '博主简介待补充。'}
+        </p>
+      </Card>
+
+      <Card>
+        <h2 class="font-bold text-xl md:text-2xl uppercase tracking-wider mb-3">联系</h2>
+        <ul class="space-y-2 font-mono text-sm md:text-base text-gray-700">
+          <li>GitHub：{SITE.social.github || '待补充'}</li>
+          <li>邮箱：{SITE.social.email || '待补充'}</li>
+        </ul>
+      </Card>
+    </div>
+  </div>
+</BaseLayout>
