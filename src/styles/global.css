@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+
+/* ============ Risograph 设计 Token ============ */
+@theme {
+  /* 有限色板 */
+  --color-paper: #fffbf0;
+  --color-ink: #1a1a1a;
+  --color-riso-pink: #ff6b9d;
+  --color-riso-blue: #2563eb;
+  --color-riso-orange: #ff8a00;
+  --color-riso-green: #22c55e;
+
+  /* 字体：拉丁/代码 mono + 中文系统栈 */
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas,
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-sans: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Noto Sans SC', 'Segoe UI', sans-serif;
+
+  /* 过渡：印刷机机械式 */
+  --ease-linear: linear;
+}
