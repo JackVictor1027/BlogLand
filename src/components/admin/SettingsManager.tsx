@@ -3,7 +3,13 @@ import { getSettings, saveSettings, type SiteSettings } from '@/lib/settings';
 import { btnPrimary, inputCls, labelCls, cardCls } from '@/components/admin/ui';
 
 const EMPTY: SiteSettings = {
-  site: { title: '', description: '', author: '', social: { github: '', email: '' } },
+  site: {
+    title: '',
+    description: '',
+    author: '',
+    heroBg: '',
+    social: { github: '', email: '' },
+  },
   comments: { repo: '', repoId: '', issueTerm: 'pathname', theme: 'github-light' },
 };
 
@@ -19,7 +25,10 @@ export default function SettingsManager() {
     (async () => {
       try {
         const { settings, sha } = await getSettings();
-        setSettings(settings);
+        setSettings({
+          ...settings,
+          site: { ...settings.site, heroBg: settings.site.heroBg ?? '' },
+        });
         setSha(sha);
       } catch (e) {
         setError((e as Error).message || '加载设置失败');
@@ -87,6 +96,15 @@ export default function SettingsManager() {
             className={inputCls}
             value={settings.site.author}
             onChange={(e) => update('site', { ...settings.site, author: e.target.value })}
+          />
+        </label>
+        <label className="block">
+          <span className={labelCls}>首页 Hero 背景图</span>
+          <input
+            className={inputCls}
+            value={settings.site.heroBg}
+            onChange={(e) => update('site', { ...settings.site, heroBg: e.target.value })}
+            placeholder="/assets/images/hero.jpg（留空则无背景图）"
           />
         </label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

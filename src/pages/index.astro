@@ -3,13 +3,26 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostCard from '@/components/blog/PostCard.astro';
 import Button from '@/components/ui/Button.astro';
 import { SITE } from '@/config';
+import { withBase } from '@/utils/path';
 import { getPublishedPosts } from '@/utils/posts';
 
 const latest = (await getPublishedPosts()).slice(0, 5);
+const heroBg = SITE.heroBg ? withBase(SITE.heroBg) : undefined;
 ---
 
 <BaseLayout>
-  <section class="bg-riso-pink border-b-2 md:border-b-4 border-ink px-4 md:px-8 py-14 md:py-24">
+  <section
+    class="bg-riso-pink border-b-2 md:border-b-4 border-ink px-4 md:px-8 py-14 md:py-24"
+    style={
+      heroBg
+        ? {
+            backgroundImage: `url(${heroBg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }
+        : undefined
+    }
+  >
     <div class="max-w-4xl mx-auto">
       <h1 class="font-black text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-4">
         {SITE.title}

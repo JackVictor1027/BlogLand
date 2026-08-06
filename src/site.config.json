@@ -1,16 +1,17 @@
-{
+﻿{
   "site": {
     "title": "老锦的代码与诗",
     "description": "",
     "author": "",
+    "heroBg": "",
     "social": {
       "github": "",
       "email": ""
     }
   },
   "comments": {
-    "repo": "",
-    "repoId": "",
+    "repo": "JackVictor1027/BlogLand",
+    "repoId": "R_kgDOTuhdFw",
     "issueTerm": "pathname",
     "theme": "github-light"
   }

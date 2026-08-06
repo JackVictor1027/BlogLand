@@ -6,6 +6,8 @@ export interface SiteSettings {
     title: string;
     description: string;
     author: string;
+    /** 首页 Hero 背景图（路径或完整 URL，留空则无） */
+    heroBg: string;
     social: { github: string; email: string };
   };
   comments: {
