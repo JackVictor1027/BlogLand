@@ -58,8 +58,8 @@ export default function TagsManager() {
     <div>
       <h2 className="font-black text-2xl uppercase tracking-wider mb-5">标签管理</h2>
 
-      {msg && <p className="mb-4 text-sm text-riso-green font-bold">{msg}</p>}
-      {error && <p className="mb-4 text-sm text-riso-orange font-bold">{error}</p>}
+      {msg && <p className="mb-4 text-sm text-riso-green-deep font-bold">{msg}</p>}
+      {error && <p className="mb-4 text-sm text-riso-orange-deep font-bold">{error}</p>}
 
       {!tags && <p className="text-gray-600">加载中……</p>}
 

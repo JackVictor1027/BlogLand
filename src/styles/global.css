@@ -13,6 +13,9 @@
   --color-riso-blue: #2563eb;
   --color-riso-orange: #ff8a00;
   --color-riso-green: #22c55e;
+  /* 深色变体：用于文字前景，保证纸白底上 WCAG AA（≥4.5:1）对比度 */
+  --color-riso-orange-deep: #c2410c;
+  --color-riso-green-deep: #15803d;
 
   /* 字体：拉丁/代码 mono，中文走系统 CJK 栈（web 字体后续子集化接入） */
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas,
@@ -103,7 +106,7 @@
   }
 
   .prose-riso a {
-    @apply text-riso-blue font-bold underline underline-offset-4 decoration-2 hover:text-riso-orange;
+    @apply text-riso-blue font-bold underline underline-offset-4 decoration-2 hover:text-riso-orange-deep;
   }
 
   .prose-riso strong {

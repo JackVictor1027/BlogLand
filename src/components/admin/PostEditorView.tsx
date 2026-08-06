@@ -129,8 +129,8 @@ export default function PostEditorView({ slug }: Props) {
         </a>
       </div>
 
-      {error && <p className="mb-4 text-sm text-riso-orange font-bold">{error}</p>}
-      {msg && <p className="mb-4 text-sm text-riso-green font-bold">{msg}</p>}
+      {error && <p className="mb-4 text-sm text-riso-orange-deep font-bold">{error}</p>}
+      {msg && <p className="mb-4 text-sm text-riso-green-deep font-bold">{msg}</p>}
 
       <div className="space-y-4">
         <div className={`${cardCls} space-y-4`}>

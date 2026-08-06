@@ -60,8 +60,8 @@ export default function SettingsManager() {
         修改会写入仓库的 src/site.config.json，提交后触发重新构建部署。
       </p>
 
-      {msg && <p className="mb-4 text-sm text-riso-green font-bold">{msg}</p>}
-      {error && <p className="mb-4 text-sm text-riso-orange font-bold">{error}</p>}
+      {msg && <p className="mb-4 text-sm text-riso-green-deep font-bold">{msg}</p>}
+      {error && <p className="mb-4 text-sm text-riso-orange-deep font-bold">{error}</p>}
 
       <div className={`${cardCls} space-y-4`}>
         <h3 className="font-bold text-lg uppercase tracking-wider border-b-2 border-ink pb-2">站点信息</h3>

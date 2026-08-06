@@ -55,7 +55,7 @@ export default function LoginView({ onLogin }: Props) {
         </label>
 
         {error && (
-          <p className="mt-3 text-sm text-riso-orange font-bold" role="alert">
+          <p className="mt-3 text-sm text-riso-orange-deep font-bold" role="alert">
             {error}
           </p>
         )}

@@ -77,11 +77,11 @@ export default function ImagesView() {
       </div>
 
       {copied && (
-        <p className="mb-4 text-sm text-riso-green font-bold break-all">
+        <p className="mb-4 text-sm text-riso-green-deep font-bold break-all">
           已复制路径：{copied}
         </p>
       )}
-      {error && <p className="mb-4 text-sm text-riso-orange font-bold">{error}</p>}
+      {error && <p className="mb-4 text-sm text-riso-orange-deep font-bold">{error}</p>}
 
       {!images && <p className="text-gray-600">加载中……</p>}
 

@@ -90,8 +90,8 @@ export default function CommentsManager() {
     <div>
       <h2 className="font-black text-2xl uppercase tracking-wider mb-5">评论管理</h2>
 
-      {msg && <p className="mb-4 text-sm text-riso-green font-bold">{msg}</p>}
-      {error && <p className="mb-4 text-sm text-riso-orange font-bold">{error}</p>}
+      {msg && <p className="mb-4 text-sm text-riso-green-deep font-bold">{msg}</p>}
+      {error && <p className="mb-4 text-sm text-riso-orange-deep font-bold">{error}</p>}
 
       {!threads && <p className="text-gray-600">加载中……</p>}
 
@@ -113,8 +113,8 @@ export default function CommentsManager() {
                     <span
                       className={`rounded-sm border-2 px-2 py-0.5 text-xs font-bold uppercase tracking-wider ${
                         thread.state === 'open'
-                          ? 'border-riso-green text-riso-green'
-                          : 'border-riso-orange text-riso-orange'
+                          ? 'border-riso-green text-riso-green-deep'
+                          : 'border-riso-orange text-riso-orange-deep'
                       }`}
                     >
                       {thread.state === 'open' ? '开放' : '已关闭'}

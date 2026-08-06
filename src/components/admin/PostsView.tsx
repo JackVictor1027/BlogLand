@@ -80,7 +80,7 @@ export default function PostsView() {
         </div>
       </div>
 
-      {error && <p className="mb-4 text-sm text-riso-orange font-bold">{error}</p>}
+      {error && <p className="mb-4 text-sm text-riso-orange-deep font-bold">{error}</p>}
 
       {!posts && <p className="text-gray-600">加载中……</p>}
 
@@ -110,8 +110,8 @@ export default function PostsView() {
                     <span
                       className={`rounded-sm border-2 px-2 py-0.5 text-xs font-bold uppercase tracking-wider ${
                         post.data.draft
-                          ? 'border-riso-orange text-riso-orange'
-                          : 'border-riso-green text-riso-green'
+                          ? 'border-riso-orange text-riso-orange-deep'
+                          : 'border-riso-green text-riso-green-deep'
                       }`}
                     >
                       {post.data.draft ? '草稿' : '已发布'}
