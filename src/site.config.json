@@ -1,0 +1,17 @@
+{
+  "site": {
+    "title": "老锦的代码与诗",
+    "description": "",
+    "author": "",
+    "social": {
+      "github": "",
+      "email": ""
+    }
+  },
+  "comments": {
+    "repo": "",
+    "repoId": "",
+    "issueTerm": "pathname",
+    "theme": "github-light"
+  }
+}

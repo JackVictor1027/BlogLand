@@ -1,33 +1,13 @@
-export const SITE = {
-  /** 博客名称 */
-  title: '老锦的代码与诗',
-  /** 站点描述（SEO） */
-  description: '',
-  /** 博主简介与社交链接（暂空占位） */
-  author: '',
-  social: {
-    github: '',
-    email: '',
-  },
-  /** GitHub 仓库名（决定 Pages 子路径） */
-  repo: 'BlogLand',
-  /** 文章列表每页条数 */
-  postsPerPage: 10,
-} as const;
+import siteConfig from './site.config.json';
 
-/** utterances 评论区配置（待提供仓库后填写） */
-export const COMMENTS = {
-  /** 评论所属仓库，如 'owner/BlogLand' */
-  repo: '',
-  /** 仓库 id（从 GitHub 获取，用于 utterances 载入） */
-  repoId: '',
-  /** issue 匹配策略：pathname / title */
-  issueTerm: 'pathname',
-  /** 主题：github-light / github-dark */
-  theme: 'github-light',
-} as const;
+/** 站点可编辑配置（来源 site.config.json，管理端「站点设置」可修改） */
+export const SITE = siteConfig.site;
+export const COMMENTS = siteConfig.comments;
 
-/** 管理端配置 */
+/** 文章列表每页条数 */
+export const POSTS_PER_PAGE = 10;
+
+/** 管理端配置（静态，不受后台编辑影响） */
 export const ADMIN = {
   /** GitHub 仓库（owner/repo），管理端全部写操作的目标 */
   repo: 'JackVictor1027/BlogLand',

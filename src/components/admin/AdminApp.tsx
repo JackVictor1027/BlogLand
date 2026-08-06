@@ -4,13 +4,19 @@ import LoginView from '@/components/admin/LoginView';
 import PostsView from '@/components/admin/PostsView';
 import PostEditorView from '@/components/admin/PostEditorView';
 import ImagesView from '@/components/admin/ImagesView';
+import TagsManager from '@/components/admin/TagsManager';
+import CommentsManager from '@/components/admin/CommentsManager';
+import SettingsManager from '@/components/admin/SettingsManager';
 import { navLinkCls, btnGhost } from '@/components/admin/ui';
 
 type Route =
   | { view: 'posts' }
   | { view: 'new' }
   | { view: 'edit'; slug: string }
-  | { view: 'images' };
+  | { view: 'images' }
+  | { view: 'tags' }
+  | { view: 'comments' }
+  | { view: 'settings' };
 
 function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean);
@@ -18,6 +24,9 @@ function parseRoute(hash: string): Route {
   if (view === 'posts' && param === 'new') return { view: 'new' };
   if (view === 'posts' && param) return { view: 'edit', slug: decodeURIComponent(param) };
   if (view === 'images') return { view: 'images' };
+  if (view === 'tags') return { view: 'tags' };
+  if (view === 'comments') return { view: 'comments' };
+  if (view === 'settings') return { view: 'settings' };
   return { view: 'posts' };
 }
 
@@ -40,8 +49,10 @@ export default function AdminApp() {
   const navItems: Array<{ label: string; href: string; active: boolean }> = [
     { label: '文章列表', href: '#/posts', active: route.view === 'posts' },
     { label: '新建文章', href: '#/posts/new', active: route.view === 'new' },
+    { label: '标签管理', href: '#/tags', active: route.view === 'tags' },
+    { label: '评论管理', href: '#/comments', active: route.view === 'comments' },
     { label: '图片管理', href: '#/images', active: route.view === 'images' },
-    { label: '站点设置', href: '#/settings', active: false },
+    { label: '站点设置', href: '#/settings', active: route.view === 'settings' },
   ];
 
   return (
@@ -80,6 +91,9 @@ export default function AdminApp() {
           {route.view === 'new' && <PostEditorView />}
           {route.view === 'edit' && <PostEditorView slug={route.slug} />}
           {route.view === 'images' && <ImagesView />}
+          {route.view === 'tags' && <TagsManager />}
+          {route.view === 'comments' && <CommentsManager />}
+          {route.view === 'settings' && <SettingsManager />}
         </main>
       </div>
     </div>
