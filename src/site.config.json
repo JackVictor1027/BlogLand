@@ -4,9 +4,35 @@
     "description": "",
     "author": "",
     "heroBg": "/assets/images/1785997784223-微信图片_20260806142455_261_69.jpg",
-    "heroTitleColor": "#1a1a1a",
-    "heroSubtitleColor": "#1a1a1a",
-    "social": []
+    "heroTitleColor": "#FFFFFF",
+    "heroSubtitleColor": "#FFFFFF",
+    "social": [
+      {
+        "platform": "github",
+        "label": "JackVictor1027",
+        "url": "https://github.com/JackVictor1027"
+      },
+      {
+        "platform": "email",
+        "label": "锦1027",
+        "url": "jackvictor1027@163.com"
+      },
+      {
+        "platform": "xiaohongshu",
+        "label": "锦先生1027",
+        "url": "https://www.xiaohongshu.com/user/profile/6486d73c00000000250346fd"
+      },
+      {
+        "platform": "bilibili",
+        "label": "锦先生1027",
+        "url": "https://space.bilibili.com/1068478252?"
+      },
+      {
+        "platform": "wechat",
+        "label": "锦先生1027",
+        "url": "jin_wp1027"
+      }
+    ]
   },
   "comments": {
     "repo": "JackVictor1027/BlogLand",
