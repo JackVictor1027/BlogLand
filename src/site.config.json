@@ -9,7 +9,9 @@
     "social": {
       "github": "",
       "email": ""
-    }
+    },
+    "heroTitleColor": "#FFFFFF",
+    "heroSubtitleColor": "#FFFFFF"
   },
   "comments": {
     "repo": "JackVictor1027/BlogLand",
