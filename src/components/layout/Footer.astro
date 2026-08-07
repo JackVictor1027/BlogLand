@@ -1,6 +1,7 @@
 ---
 import { SITE } from '@/config';
 import { withBase } from '@/utils/path';
+import SocialIcon from '@/components/SocialIcon.astro';
 
 const footerLinks = [
   { href: '/', label: '首页' },
@@ -33,8 +34,25 @@ const footerLinks = [
     <div>
       <h4 class="font-black text-base mb-4 uppercase tracking-wider">联系</h4>
       <ul class="space-y-2 font-mono text-sm text-gray-400">
-        <li>{SITE.social.github || 'GitHub：待补充'}</li>
-        <li>{SITE.social.email || '邮箱：待补充'}</li>
+        {
+          SITE.social.length > 0 ? (
+            SITE.social.map((s) => (
+              <li>
+                <a
+                  href={s.url}
+                  target={s.url.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 hover:text-riso-pink"
+                >
+                  <SocialIcon platform={s.platform} size={15} />
+                  <span>{s.label}</span>
+                </a>
+              </li>
+            ))
+          ) : (
+            <li>联系方式待补充</li>
+          )
+        }
       </ul>
     </div>
   </div>

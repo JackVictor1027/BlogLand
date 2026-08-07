@@ -1,6 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getSettings, saveSettings, type SiteSettings } from '@/lib/settings';
-import { btnPrimary, inputCls, labelCls, cardCls } from '@/components/admin/ui';
+import {
+  getSettings,
+  saveSettings,
+  type SiteSettings,
+  type SocialLink,
+  type SocialPlatform,
+} from '@/lib/settings';
+import { btnPrimary, btnGhost, btnDanger, inputCls, labelCls, cardCls } from '@/components/admin/ui';
+
+const PLATFORMS: Array<{ value: SocialPlatform; label: string }> = [
+  { value: 'github', label: 'GitHub' },
+  { value: 'email', label: '邮箱' },
+  { value: 'xiaohongshu', label: '小红书' },
+  { value: 'bilibili', label: 'B 站' },
+  { value: 'wechat', label: '微信公众号' },
+];
 
 const EMPTY: SiteSettings = {
   site: {
@@ -10,7 +24,7 @@ const EMPTY: SiteSettings = {
     heroBg: '',
     heroTitleColor: '#1a1a1a',
     heroSubtitleColor: '#1a1a1a',
-    social: { github: '', email: '' },
+    social: [],
   },
   comments: { repo: '', repoId: '', issueTerm: 'pathname', theme: 'github-light' },
 };
@@ -34,6 +48,9 @@ export default function SettingsManager() {
             heroBg: settings.site.heroBg ?? '',
             heroTitleColor: settings.site.heroTitleColor ?? '#1a1a1a',
             heroSubtitleColor: settings.site.heroSubtitleColor ?? '#1a1a1a',
+            social: Array.isArray(settings.site.social)
+              ? settings.site.social
+              : [],
           },
         });
         setSha(sha);
@@ -47,6 +64,23 @@ export default function SettingsManager() {
 
   function update<K extends keyof SiteSettings>(key: K, value: SiteSettings[K]) {
     setSettings((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function updateSocial(list: SocialLink[]) {
+    update('site', { ...settings.site, social: list });
+  }
+
+  function addSocial() {
+    updateSocial([...settings.site.social, { platform: 'github', label: '', url: '' }]);
+  }
+
+  function updateSocialAt(index: number, patch: Partial<SocialLink>) {
+    const list = settings.site.social.map((s, i) => (i === index ? { ...s, ...patch } : s));
+    updateSocial(list);
+  }
+
+  function removeSocialAt(index: number) {
+    updateSocial(settings.site.social.filter((_, i) => i !== index));
   }
 
   async function handleSave() {
@@ -136,27 +170,55 @@ export default function SettingsManager() {
             />
           </label>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label className="block">
-            <span className={labelCls}>GitHub 链接</span>
-            <input
-              className={inputCls}
-              value={settings.site.social.github}
-              onChange={(e) =>
-                update('site', { ...settings.site, social: { ...settings.site.social, github: e.target.value } })
-              }
-            />
-          </label>
-          <label className="block">
-            <span className={labelCls}>邮箱</span>
-            <input
-              className={inputCls}
-              value={settings.site.social.email}
-              onChange={(e) =>
-                update('site', { ...settings.site, social: { ...settings.site.social, email: e.target.value } })
-              }
-            />
-          </label>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className={labelCls}>联系方式（显示在页脚与关于页）</span>
+            <button className={btnGhost} onClick={addSocial} type="button">
+              + 添加
+            </button>
+          </div>
+          {settings.site.social.length === 0 && (
+            <p className="text-xs text-gray-600">暂无联系方式，点击「+ 添加」新增。</p>
+          )}
+          {settings.site.social.map((s, i) => (
+            <div key={i} className="grid grid-cols-[120px_1fr_1fr_auto] gap-2 items-end">
+              <label className="block">
+                <span className={labelCls}>平台</span>
+                <select
+                  className={inputCls}
+                  value={s.platform}
+                  onChange={(e) => updateSocialAt(i, { platform: e.target.value as SocialPlatform })}
+                >
+                  {PLATFORMS.map((p) => (
+                    <option key={p.value} value={p.value}>
+                      {p.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="block">
+                <span className={labelCls}>名称</span>
+                <input
+                  className={inputCls}
+                  value={s.label}
+                  onChange={(e) => updateSocialAt(i, { label: e.target.value })}
+                  placeholder="账号名"
+                />
+              </label>
+              <label className="block">
+                <span className={labelCls}>链接</span>
+                <input
+                  className={inputCls}
+                  value={s.url}
+                  onChange={(e) => updateSocialAt(i, { url: e.target.value })}
+                  placeholder="https://… 或 mailto:…"
+                />
+              </label>
+              <button className={btnDanger} onClick={() => removeSocialAt(i)} type="button">
+                删除
+              </button>
+            </div>
+          ))}
         </div>
       </div>
 

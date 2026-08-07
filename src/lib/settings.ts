@@ -1,6 +1,16 @@
 import { ADMIN } from '@/config';
 import { gh, encodePath, b64ToUtf8, utf8ToB64 } from '@/lib/github';
 
+export type SocialPlatform = 'github' | 'email' | 'xiaohongshu' | 'bilibili' | 'wechat';
+
+export interface SocialLink {
+  platform: SocialPlatform;
+  /** 显示名称（如账号名） */
+  label: string;
+  /** 链接（外链或 mailto） */
+  url: string;
+}
+
 export interface SiteSettings {
   site: {
     title: string;
@@ -12,7 +22,8 @@ export interface SiteSettings {
     heroTitleColor: string;
     /** 首页 Hero 副标题文字颜色（CSS 色值） */
     heroSubtitleColor: string;
-    social: { github: string; email: string };
+    /** 社交联系方式（Footer 联系栏 / 关于页） */
+    social: SocialLink[];
   };
   comments: {
     repo: string;

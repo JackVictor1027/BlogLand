@@ -1,8 +1,11 @@
 import siteConfig from './site.config.json';
+import type { SiteSettings } from '@/lib/settings';
+
+const cfg = siteConfig as unknown as SiteSettings;
 
 /** 站点可编辑配置（来源 site.config.json，管理端「站点设置」可修改） */
-export const SITE = siteConfig.site;
-export const COMMENTS = siteConfig.comments;
+export const SITE = cfg.site;
+export const COMMENTS = cfg.comments;
 
 /** 文章列表每页条数 */
 export const POSTS_PER_PAGE = 10;

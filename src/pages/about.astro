@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Card from '@/components/ui/Card.astro';
+import SocialIcon from '@/components/SocialIcon.astro';
 import { SITE } from '@/config';
 ---
 
@@ -18,10 +19,29 @@ import { SITE } from '@/config';
 
       <Card>
         <h2 class="font-bold text-xl md:text-2xl uppercase tracking-wider mb-3">联系</h2>
-        <ul class="space-y-2 font-mono text-sm md:text-base text-gray-700">
-          <li>GitHub：{SITE.social.github || '待补充'}</li>
-          <li>邮箱：{SITE.social.email || '待补充'}</li>
-        </ul>
+        {
+          SITE.social.length > 0 ? (
+            <ul class="space-y-2 font-mono text-sm md:text-base text-gray-700">
+              {
+                SITE.social.map((s) => (
+                  <li>
+                    <a
+                      href={s.url}
+                      target={s.url.startsWith('http') ? '_blank' : undefined}
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 hover:text-riso-blue hover:underline underline-offset-4"
+                    >
+                      <SocialIcon platform={s.platform} size={17} />
+                      <span>{s.label}</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          ) : (
+            <p class="text-sm md:text-base text-gray-700">联系方式待补充。</p>
+          )
+        }
       </Card>
     </div>
   </div>
