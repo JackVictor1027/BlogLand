@@ -1,17 +1,15 @@
-﻿{
+{
   "site": {
     "title": "老锦的代码与诗",
     "description": "",
     "author": "",
     "heroBg": "/assets/images/1785997784223-微信图片_20260806142455_261_69.jpg",
-    "heroTitleColor": "#1a1a1a",
-    "heroSubtitleColor": "#1a1a1a",
-    "social": {
-      "github": "",
-      "email": ""
-    },
     "heroTitleColor": "#FFFFFF",
-    "heroSubtitleColor": "#FFFFFF"
+    "heroSubtitleColor": "#FFFFFF",
+    "social": {
+      "github": "https://github.com/JackVictor1027",
+      "email": "jackvictor1027@163.com"
+    }
   },
   "comments": {
     "repo": "JackVictor1027/BlogLand",
