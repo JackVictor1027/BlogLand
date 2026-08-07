@@ -4,6 +4,8 @@
     "description": "",
     "author": "",
     "heroBg": "/assets/images/1785997784223-微信图片_20260806142455_261_69.jpg",
+    "heroTitleColor": "#1a1a1a",
+    "heroSubtitleColor": "#1a1a1a",
     "social": {
       "github": "",
       "email": ""

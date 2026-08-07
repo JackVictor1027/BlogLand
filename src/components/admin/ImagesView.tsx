@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { uploadImage, listImages, deleteImage, type ImageFile } from '@/lib/images';
+import { uploadImage, listImages, deleteImage, publicPath, type ImageFile } from '@/lib/images';
 import { ADMIN } from '@/config';
 import { btnPrimary, btnGhost, btnDanger, cardCls } from '@/components/admin/ui';
 
@@ -59,6 +59,7 @@ export default function ImagesView() {
 
   const rawUrl = (path: string) =>
     `https://raw.githubusercontent.com/${ADMIN.repo}/${ADMIN.branch}/${path}`;
+  const copyPath = (path: string) => publicPath(path);
 
   return (
     <div>
@@ -107,7 +108,7 @@ export default function ImagesView() {
                 {image.name}
               </p>
               <div className="flex gap-2">
-                <button className={btnGhost} onClick={() => handleCopy(`/${image.path}`)}>
+                <button className={btnGhost} onClick={() => handleCopy(copyPath(image.path))}>
                   复制路径
                 </button>
                 <button className={btnDanger} onClick={() => handleDelete(image)} disabled={busy}>

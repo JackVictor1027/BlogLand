@@ -24,10 +24,16 @@ const heroBg = SITE.heroBg ? withBase(SITE.heroBg) : undefined;
     }
   >
     <div class="max-w-4xl mx-auto">
-      <h1 class="font-black text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-4">
+      <h1
+        class="font-black text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-4"
+        style={SITE.heroTitleColor ? { color: SITE.heroTitleColor } : undefined}
+      >
         {SITE.title}
       </h1>
-      <p class="text-base md:text-xl max-w-xl mb-8 text-ink">
+      <p
+        class="text-base md:text-xl max-w-xl mb-8"
+        style={SITE.heroSubtitleColor ? { color: SITE.heroSubtitleColor } : undefined}
+      >
         {SITE.description || '代码与诗，两手都要硬。'}
       </p>
       <Button href="/posts/" variant="dark" size="lg">浏览全部文章</Button>

@@ -7,7 +7,12 @@ export interface ImageFile {
   sha: string;
 }
 
-/** 上传图片到仓库 assets/images，返回可插入文章的相对路径 */
+/** 仓库路径 → 线上可访问引用路径（剥离 public/ 前缀） */
+export function publicPath(repoPath: string): string {
+  return `/${repoPath.replace(/^public\//, '')}`;
+}
+
+/** 上传图片到仓库 public/assets/images，返回可插入文章/配置的相对路径 */
 export async function uploadImage(file: File): Promise<string> {
   const safeName = file.name.replace(/[^\w.\u4e00-\u9fff-]/g, '_');
   const name = `${Date.now()}-${safeName}`;
@@ -17,7 +22,7 @@ export async function uploadImage(file: File): Promise<string> {
     method: 'PUT',
     body: { message: `image: 上传 ${safeName}`, content },
   });
-  return `/${path}`;
+  return publicPath(path);
 }
 
 export async function listImages(): Promise<ImageFile[]> {

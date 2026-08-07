@@ -13,8 +13,8 @@ export const ADMIN = {
   repo: 'JackVictor1027/BlogLand',
   /** 文章目录（相对仓库根） */
   postsDir: 'src/content/posts',
-  /** 图片目录（相对仓库根） */
-  imagesDir: 'assets/images',
+  /** 图片目录（相对仓库根，须在 public/ 下才会被构建部署） */
+  imagesDir: 'public/assets/images',
   /** 默认分支（raw 图片预览用） */
   branch: 'master',
 } as const;

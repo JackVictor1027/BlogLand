@@ -8,6 +8,8 @@ const EMPTY: SiteSettings = {
     description: '',
     author: '',
     heroBg: '',
+    heroTitleColor: '#1a1a1a',
+    heroSubtitleColor: '#1a1a1a',
     social: { github: '', email: '' },
   },
   comments: { repo: '', repoId: '', issueTerm: 'pathname', theme: 'github-light' },
@@ -27,7 +29,12 @@ export default function SettingsManager() {
         const { settings, sha } = await getSettings();
         setSettings({
           ...settings,
-          site: { ...settings.site, heroBg: settings.site.heroBg ?? '' },
+          site: {
+            ...settings.site,
+            heroBg: settings.site.heroBg ?? '',
+            heroTitleColor: settings.site.heroTitleColor ?? '#1a1a1a',
+            heroSubtitleColor: settings.site.heroSubtitleColor ?? '#1a1a1a',
+          },
         });
         setSha(sha);
       } catch (e) {
@@ -107,6 +114,28 @@ export default function SettingsManager() {
             placeholder="/assets/images/hero.jpg（留空则无背景图）"
           />
         </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label className="block">
+            <span className={labelCls}>Hero 标题颜色</span>
+            <input
+              className={inputCls}
+              value={settings.site.heroTitleColor}
+              onChange={(e) => update('site', { ...settings.site, heroTitleColor: e.target.value })}
+              placeholder="#1a1a1a"
+            />
+          </label>
+          <label className="block">
+            <span className={labelCls}>Hero 副标题颜色</span>
+            <input
+              className={inputCls}
+              value={settings.site.heroSubtitleColor}
+              onChange={(e) =>
+                update('site', { ...settings.site, heroSubtitleColor: e.target.value })
+              }
+              placeholder="#1a1a1a"
+            />
+          </label>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="block">
             <span className={labelCls}>GitHub 链接</span>

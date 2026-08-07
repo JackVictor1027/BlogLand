@@ -8,6 +8,10 @@ export interface SiteSettings {
     author: string;
     /** 首页 Hero 背景图（路径或完整 URL，留空则无） */
     heroBg: string;
+    /** 首页 Hero 标题文字颜色（CSS 色值） */
+    heroTitleColor: string;
+    /** 首页 Hero 副标题文字颜色（CSS 色值） */
+    heroSubtitleColor: string;
     social: { github: string; email: string };
   };
   comments: {
