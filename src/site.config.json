@@ -1,4 +1,4 @@
-﻿{
+{
   "site": {
     "title": "老锦的代码与诗",
     "description": "",
@@ -9,27 +9,27 @@
     "social": [
       {
         "platform": "github",
-        "label": "代码仓库-JackVictor1027",
+        "label": "代码仓库-Github",
         "url": "https://github.com/JackVictor1027"
       },
       {
         "platform": "email",
-        "label": "联系邮箱-锦1027",
-        "url": "jackvictor1027@163.com"
+        "label": "联系方式-jackvictor1027@163.com",
+        "url": ""
       },
       {
         "platform": "xiaohongshu",
-        "label": "考研分享-锦先生1027",
+        "label": "考研分享-小红书",
         "url": "https://www.xiaohongshu.com/user/profile/6486d73c00000000250346fd"
       },
       {
         "platform": "bilibili",
-        "label": "技术视频-锦先生1027",
+        "label": "技术视频-B站",
         "url": "https://space.bilibili.com/1068478252?"
       },
       {
         "platform": "wechat",
-        "label": "技术文章-锦先生1027",
+        "label": "技术文章-微信公众号",
         "url": "https://mp.weixin.qq.com/s/rRbmUOS3rD9ZJtH5wLHVjw"
       }
     ]
