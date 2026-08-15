@@ -4,7 +4,7 @@ description: 先知道QT是什么
 date: 2026-08-15
 updated: 2026-08-15
 tags: ["QT", "C++"]
-cover: /assets/images/art-cover-1.png
+cover: /assets/images/1786766058858-art-cover-1.png
 draft: false
 ---
 
