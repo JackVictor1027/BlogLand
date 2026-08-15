@@ -2,8 +2,10 @@
 title: "认识QT——QT学习笔记（一）"
 description: 先知道QT是什么
 date: 2026-08-15
+updated: 2026-08-15
 tags: ["QT", "C++"]
-draft: true
+cover: /assets/images/art-cover-1.png
+draft: false
 ---
 
 是看网课得来的学习笔记，AI看视频总结出来便于自己复习使用。
