@@ -1,7 +1,9 @@
 ---
 title: "QT的编译——QT学习笔记（二）"
 date: 2026-08-17
+updated: 2026-08-17
 tags: ["QT", "C++"]
+cover: /assets/images/1786766058858-art-cover-1.png
 draft: false
 ---
 
