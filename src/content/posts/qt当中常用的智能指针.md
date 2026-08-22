@@ -3,7 +3,7 @@ title: QT当中常用的智能指针
 date: 2026-08-22
 updated: 2026-08-22
 tags: ["C++", "QT", "智能指针"]
-draft: true
+draft: false
 ---
 
 在 Qt 开发中，除了经典的“父子对象树”内存管理机制外，Qt 也提供了一套完善的智能指针体系。Qt 的智能指针主要分为四类：**QScopedPointer**、**QSharedPointer**、**QWeakPointer** 和 **QPointer**。
