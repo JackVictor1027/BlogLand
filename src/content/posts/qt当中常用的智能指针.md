@@ -1,6 +1,7 @@
 ---
 title: QT当中常用的智能指针
 date: 2026-08-22
+updated: 2026-08-22
 tags: ["C++", "QT", "智能指针"]
 draft: true
 ---
@@ -42,7 +43,7 @@ void testScoped() {
 
 **一个疑问**：如下图所示，很明显，这里被QScopedPointer指向的对象又被另外一个指针指向了，这矛盾吗？是不是不好的写法？
 
-![alt text](image-1.png)
+![alt text](/assets/images/1787378770597-image-1.png)
 
 不矛盾，智能指针（QScopedPointer类型的per_ptr）一直持有对Per对象的所有权，但是裸指针（another_ptr）只持有对Per对象的读取权限。
 
